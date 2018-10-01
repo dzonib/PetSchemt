@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const passport = require('passport');
 
 const db = require('./config/keys').db;
 
@@ -18,6 +19,10 @@ const app = express();
 app.use(bodyParser.json());
 
 const shelterAPI = require('./routes/api/shelter');
+
+app.use(passport.initialize());
+
+require('./config/passport')(passport);
 
 app.use('/api/shelter', shelterAPI);
 

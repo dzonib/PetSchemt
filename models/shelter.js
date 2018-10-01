@@ -12,7 +12,7 @@ const ShelterSchema = new Schema({
     required: true
   },
   city: {
-    type: String,
+    type: String, 
     required: true
   },
   name: {

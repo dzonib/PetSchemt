@@ -3,7 +3,7 @@ const Validator = require('validator');
 const isEmpty = require('../isEmpty');
 
 module.exports = ({city, name, email, password, password2}) => {
-  const errors = {};
+  let errors = {}; 
 
   city ? city : city = '';
   name ? name : name = '';
@@ -11,12 +11,42 @@ module.exports = ({city, name, email, password, password2}) => {
   password ? password : password = '';
   password2 ? password2 : password2 = '';
 
+  if (!Validator.isLength(city, {min: 2, max: 10})) {
+    errors.city = 'City field is required';
+  }
+
   if (Validator.isEmpty(city)) {
     errors.city = 'City field is required';
   }
 
+  if (!Validator.isLength(name, {min: 2, max: 30})) {
+    errors.name = 'Name field must be between 2 and 20 charachters'
+  }
+
+  if (!Validator.isEmail(email)) {
+    errors.name = 'Please enter valid email'
+  }
+
+  if (Validator.isEmpty(email)) {
+    errors.email = 'Email field is required';
+  }
+
+  if (!Validator.isLength(password, {min: 6, max: 30})) {
+    errors.password = 'Password must be between 6 and 30 charachters long'
+  }
+
+  if (Validator.isEmpty(password)) {
+    errors.password = 'Password field is required';
+  }
+
+  if (!Validator.equals(password, password2)) {
+    errors.password = 'Passwords must match'
+    errors.password2 = 'Passwords must match'
+  }
+
+
   return {
     errors,
-    isValid: !isEmpty(errors)
+    isValid: isEmpty(errors)
   }
 }
