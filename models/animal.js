@@ -4,18 +4,22 @@ const Schema = mongoose.Schema;
 
 
 const AnimalSchema = new Schema({
-  type: {
+  animalType: {
     type: String,
     required: true
   },
-  age: {
+  animalImage: {
+    type: String,
+    required: true
+  },
+  animalAge: {
     type: Number,
     required: true
   },
-  breed: {
+  animalBreed: {
     type: String,
   },
-  name: {
+  animalName: {
     type: String,
     required: true
   },
@@ -29,4 +33,4 @@ const AnimalSchema = new Schema({
 });
 
 
-module.exports = mongoose.module('animal', AnimalSchema);
+module.exports = mongoose.model('animal', AnimalSchema);

@@ -7,6 +7,8 @@ const router = express.Router();
 const Shelter = require('../../models/shelter');
 const secretOrKey = require('../../config/keys').secretOrKey;
 
+
+// Register
 const validateRegisterInput = require('../../validation/shelter/register');
 
 router.post('/register', async (req, res) => {
@@ -66,7 +68,7 @@ router.post('/login', async (req, res) => {
   const shelter = await Shelter.findOne({email});
 
   if (!shelter) {
-    errors.email = "No shelter registered with that email"
+    errors.email = "No shelter registered with that email";
     return res.status(400).json(errors);
   }
 
@@ -91,7 +93,11 @@ router.post('/login', async (req, res) => {
 
 // test protected route
 router.get('/test', passport.authenticate('jwt', {session: false}), (req, res) => {
-  res.json(req.user);
+
+  const {city, name, email} = req.user;
+
+  res.json({city, name, email});
+
 })
 
 module.exports = router;
