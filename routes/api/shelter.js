@@ -97,7 +97,6 @@ router.get('/test', passport.authenticate('jwt', {session: false}), (req, res) =
   const {city, name, email} = req.user;
 
   res.json({city, name, email});
-
 })
 
 module.exports = router;

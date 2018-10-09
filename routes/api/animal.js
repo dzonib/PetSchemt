@@ -5,10 +5,16 @@ const passport = require('passport');
 
 const router = express.Router();
 
-
 // add animal
-router.post('/', passport.authenticate('jwt', {session: false}), async (req, res) => {
-  const {animalType, animalAge, animalName, animalBreed, animalImage, reserved} = req.body;
+router.post('/', passport.authenticate('jwt', {session: false}), async(req, res) => {
+  const {
+    animalType,
+    animalAge,
+    animalName,
+    animalBreed,
+    animalImage,
+    reserved
+  } = req.body;
 
   const animal = new Animal({
     animalType,
@@ -20,16 +26,15 @@ router.post('/', passport.authenticate('jwt', {session: false}), async (req, res
     shelter: req.user.id
   });
 
-
   try {
     const shelter = await Shelter.findById(req.user.id);
 
-    await shelter.animals.unshift(animal);
+    await shelter
+      .animals
+      .unshift(animal);
 
     await shelter.save();
 
-    console.log(shelter)
-  
     await animal
       .populate('shelter')
       .save();
@@ -41,16 +46,17 @@ router.post('/', passport.authenticate('jwt', {session: false}), async (req, res
 });
 
 // get all animals
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
 
-  const animals = await Animal.find().populate('shelter', ['name']);
+  const animals = await Animal
+    .find()
+    .populate('shelter', ['name']);
 
   res.json(animals)
 })
 
-
 // get one animal by id
-router.get('/:id', async(req, res) => { 
+router.get('/:id', async (req, res) => {
 
   try {
     const animal = await Animal
@@ -62,21 +68,21 @@ router.get('/:id', async(req, res) => {
   } catch (e) {
     console.log(`ERROR --> ${e}`);
   }
-
 })
 
 // remove animal
-router.delete('/remove/:id', passport.authenticate('jwt', {session: false}), async (req, res) => {
+router.delete('/remove/:id', passport.authenticate('jwt', {session: false}), async(req, res) => {
 
   try {
     const shelter = await Shelter.findById(req.user.id);
 
-    const newAnimals = await shelter.animals.filter( animal => animal.id !== req.params.id);
+    const newAnimals = await shelter
+      .animals
+      .filter(animal => animal.id !== req.params.id);
 
     shelter.animals = newAnimals;
 
     await shelter.save();
-   
 
     await Animal.findByIdAndDelete(req.params.id);
 
@@ -85,9 +91,7 @@ router.delete('/remove/:id', passport.authenticate('jwt', {session: false}), asy
   } catch (e) {
     console.log(`ERROR --> ${e}`)
   }
-
 });
-
 
 
 module.exports = router;
