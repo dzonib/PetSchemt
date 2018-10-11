@@ -12,7 +12,7 @@ const secretOrKey = require('../../config/keys').secretOrKey;
 const validateRegisterInput = require('../../validation/shelter/register');
 
 router.post('/register', async (req, res) => {
-  const {city, name, email, password} = req.body;
+  const {city, street, name, email, password} = req.body;
 
   const {isValid, errors} = validateRegisterInput(req.body);
 
@@ -30,6 +30,7 @@ router.post('/register', async (req, res) => {
 
     const newShelter = new Shelter({
       city,
+      street,
       name,
       email,
       password
@@ -80,6 +81,7 @@ router.post('/login', async (req, res) => {
   }
 
   const payload = {
+    street: shelter.street,
     id: shelter.id,
     name: shelter.name,
     email: shelter.email,
@@ -94,9 +96,9 @@ router.post('/login', async (req, res) => {
 // test protected route
 router.get('/test', passport.authenticate('jwt', {session: false}), (req, res) => {
 
-  const {city, name, email} = req.user;
+  const {city, name, email, street} = req.user;
 
-  res.json({city, name, email});
+  res.json({city, name, email, street});
 })
 
 module.exports = router;

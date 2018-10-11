@@ -7,6 +7,10 @@ const ShelterSchema = new Schema({
     type: String,
     required: true
   },
+  street: {
+    type: String,
+    required: true
+  },
   password: {
     type: String,
     required: true

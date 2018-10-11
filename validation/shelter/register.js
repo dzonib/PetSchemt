@@ -2,10 +2,11 @@ const Validator = require('validator');
 
 const isEmpty = require('../isEmpty');
 
-module.exports = ({city, name, email, password, password2}) => {
+module.exports = ({city, street, name, email, password, password2}) => {
   let errors = {}; 
 
   city ? city : city = '';
+  street ? street : street = '';
   name ? name : name = '';
   email ? email : email = '';
   password ? password : password = '';
@@ -17,6 +18,10 @@ module.exports = ({city, name, email, password, password2}) => {
 
   if (Validator.isEmpty(city)) {
     errors.city = 'City field is required';
+  }
+
+  if (Validator.isEmpty(street)) {
+    errors.street = 'Street field is required';
   }
 
   if (!Validator.isLength(name, {min: 2, max: 30})) {
