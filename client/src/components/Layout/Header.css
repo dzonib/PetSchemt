@@ -7,7 +7,7 @@
   background: #0e1111;
   display: flex;
   align-items: center;
-  width: 70px;
+  width: 80px;
   padding: 5px;
   cursor: pointer;
   border: 2px solid white;
@@ -28,3 +28,7 @@
   color: #c8d1d3;
 }
 
+.header__link {
+  text-decoration: none;
+  color: white;
+}

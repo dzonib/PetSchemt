@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import ShelterRegistration from './Shelter/ShelterRegistration';
 import Header from './Layout/Header';
+import ShelterRegistration from './Shelter/ShelterRegistration';
+import Login from './Shelter/Login';
 import './App.css'
 
 class App extends Component {
@@ -11,7 +12,8 @@ class App extends Component {
       <> 
         <Route path='/' component={Header}/>
         <Switch>
-          <Route path='/register' component={ShelterRegistration}/>
+          <Route path='/shelter/register' component={ShelterRegistration}/>
+          <Route path='/shelter/login' component={Login}/>
         </Switch>
       </>
 

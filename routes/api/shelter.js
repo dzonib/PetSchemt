@@ -12,7 +12,7 @@ const secretOrKey = require('../../config/keys').secretOrKey;
 const validateRegisterInput = require('../../validation/shelter/register');
 
 router.post('/register', async (req, res) => {
-  const {city, street, name, email, password} = req.body;
+  const {city, imageUrl, street, name, email, password} = req.body;
 
   const {isValid, errors} = validateRegisterInput(req.body);
 
@@ -30,6 +30,7 @@ router.post('/register', async (req, res) => {
 
     const newShelter = new Shelter({
       city,
+      imageUrl,
       street,
       name,
       email,
@@ -40,8 +41,6 @@ router.post('/register', async (req, res) => {
     const hash = await bcrypt.hash(newShelter.password, salt);
 
     newShelter.password = hash;
-
-    console.log(newShelter);
 
     await newShelter.save();
 
@@ -85,7 +84,8 @@ router.post('/login', async (req, res) => {
     id: shelter.id,
     name: shelter.name,
     email: shelter.email,
-    city: shelter.city
+    city: shelter.city,
+    imageUrl: shelter.imageUrl
   }
 
   const token = await jwt.sign(payload, secretOrKey, {expiresIn: 3600});
