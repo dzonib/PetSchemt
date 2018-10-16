@@ -1,12 +1,13 @@
-import React, {Component} from 'react';
-import Paper from '@material-ui/core/Paper';
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Typography from '@material-ui/core/Typography';
-import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
-import Button from '@material-ui/core/Button';
-import axios from 'axios';
+import React, {Component} from 'react'
+import {connect} from 'react-redux'
+import Paper from '@material-ui/core/Paper'
+import FormControl from '@material-ui/core/FormControl'
+import Typography from '@material-ui/core/Typography'
+import Select from '@material-ui/core/Select'
+import Button from '@material-ui/core/Button'
+import InputField from './InputField'
+import InputLabel from './InputLabel'
+import {registerUser} from '../../redux/actions/shelter/register'
 
 class ShelterRegistration extends Component {
 
@@ -26,22 +27,26 @@ class ShelterRegistration extends Component {
     imageUrl: '',
     name: '',
     password: '',
-    password2: ''
+    password2: '',
+    errors: {}
 
+  }
+
+  // LIFECYCLE
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return nextProps.errors && {errors: nextProps.errors}
   }
 
   handleChange = name => event => {
     this.setState({[name]: event.target.value})
   }
 
-  onInputChange = name => e => {
+  onInputChange = (name, e) => {
     this.setState({[name]: e.target.value})
   }
 
   submitHandler = async (e) => {
-    e.preventDefault();
-
-    console.log(this.props)
+    e.preventDefault()
 
     const {
       name,
@@ -51,28 +56,20 @@ class ShelterRegistration extends Component {
       imageUrl,
       password,
       password2
-    } = this.state;
+    } = this.state
 
     const newShelter = {
       name, city, street, email, imageUrl, password, password2
     }
 
-    try {
-      const res = await axios.post('/api/shelter/register', newShelter);
-
-      console.log(res)
-      this.props.history.push('/login')
-    } catch(e) {
-      console.log(e.response.data)
-      // e.response.data gets you errors from server
-    }
+    this.props.registerUser(newShelter, this.props.history)
+      .catch(e => console.log(e))
   }
 
-  render() {
 
+  render() {
     return (
       <div
-
         style={{
         display: 'flex',
         justifyContent: 'center',
@@ -98,7 +95,7 @@ class ShelterRegistration extends Component {
           }}
             variant="h3">Register Shelter</Typography>
           <FormControl fullWidth>
-            <InputLabel>Select City</InputLabel>
+            <InputLabel name='Select city' style={{marginBottom: '14px'}}/>
             <Select
               onChange={this.handleChange('city')}
               native
@@ -111,66 +108,63 @@ class ShelterRegistration extends Component {
                   <option key={city} value={city}>{city}</option>
                 ))}
             </Select>
+            {this.state.errors.city && <div
+              style={{display: 'flex', justifyContent: 'flex-start'}}
+            ><p style={{color: 'red'}}>{this.state.errors.city}</p></div> }
           </FormControl>
 
-          <TextField
+          <InputLabel name='Email'/>
+          <InputField 
             placeholder="Email"
-            variant="outlined"
-            fullWidth
-            required
-            type="email"
-            onChange={this.onInputChange('email')}
-            margin="normal"/>
+            type="text"
+            onInputChange={(e) => this.onInputChange('email', e)}
+            error={this.state.errors.email}
+          />
 
-          <TextField
+          <InputLabel name='Street'/>
+          <InputField 
             placeholder="Street"
-            variant="outlined"
-            fullWidth
-            required
             type="text"
-            onChange={this.onInputChange('street')}
-            margin="normal"/>
+            onInputChange={(e) => this.onInputChange('street', e)}
+            error={this.state.errors.street}
+          />
 
-          <TextField
+          <InputLabel name='Image Url'/>
+          <InputField 
             placeholder="Image url"
-            variant="outlined"
-            fullWidth
-            required
             type="text"
-            onChange={this.onInputChange('imageUrl')}
-            margin="normal"/>
+            onInputChange={(e) => this.onInputChange('imageUrl', e)}
+            error={this.state.errors.imageUrl}
+          />
 
-          <TextField
+          <InputLabel name='Shelter name'/>
+          <InputField 
             placeholder="Shelter name"
-            variant="outlined"
-            fullWidth
-            required
             type="text"
-            onChange={this.onInputChange('name')}
-            margin="normal"/>
+            onInputChange={(e) => this.onInputChange('name', e)}
+            error={this.state.errors.name}
+          />
 
-          <TextField
+          <InputLabel name='Password'/>
+          <InputField 
             placeholder="Password"
-            variant="outlined"
-            fullWidth
-            required
             type="password"
-            onChange={this.onInputChange('password')}
-            margin="normal"/>
+            onInputChange={(e) => this.onInputChange('password', e)}
+            error={this.state.errors.password}
+          />
 
-          <TextField
+          <InputLabel name='Password 2'/>
+          <InputField 
             placeholder="Password2"
-            variant="outlined"
-            fullWidth
-            required
             type="password"
-            onChange={this.onInputChange('password2')}
-            margin="normal"/>
-
+            onInputChange={(e) => this.onInputChange('password2', e)}
+            error={this.state.errors.password2}
+          />
           <Button
             style={{
             background: '#DCDCDC',
-            marginTop: '20px'
+            marginTop: '20px',
+            display: 'block'
           }}
             type='submit'
             size="large"
@@ -185,4 +179,10 @@ class ShelterRegistration extends Component {
   }
 }
 
-export default ShelterRegistration;
+const mapStateToProps = (state) => {
+  return {
+    errors: state.errors
+  }
+}
+
+export default connect(mapStateToProps, {registerUser})(ShelterRegistration)

@@ -13,11 +13,11 @@ module.exports = ({city, street, name, email, password, password2}) => {
   password2 ? password2 : password2 = '';
 
   if (!Validator.isLength(city, {min: 2, max: 10})) {
-    errors.city = 'City field is required';
+    errors.city = 'City must not be empty';
   }
 
   if (Validator.isEmpty(city)) {
-    errors.city = 'City field is required';
+    errors.city = 'Please select city';
   }
 
   if (Validator.isEmpty(street)) {
@@ -29,7 +29,7 @@ module.exports = ({city, street, name, email, password, password2}) => {
   }
 
   if (!Validator.isEmail(email)) {
-    errors.name = 'Please enter valid email'
+    errors.email = 'Please enter valid email'
   }
 
   if (Validator.isEmpty(email)) {
