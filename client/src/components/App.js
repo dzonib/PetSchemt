@@ -13,7 +13,7 @@ class App extends Component {
     return (
       <Provider store={store}>
       <Router>
-      <> 
+      <>
         <Route path='/' component={Header}/>
         <Switch>
           <Route path='/shelter/register' component={ShelterRegistration}/>
