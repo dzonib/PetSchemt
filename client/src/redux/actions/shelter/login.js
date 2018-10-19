@@ -30,4 +30,5 @@ const setCurrentShelter = (payload) => {
   return {type: SET_CURRENT_USER, payload}
 }
 
-export {login as default}
+
+export { setCurrentShelter, login as default}

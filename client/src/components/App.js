@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import {Provider} from 'react-redux'
+import Dashboard from './Shelter/Dashboard'
 
 import Header from './Layout/Header'
 import store from '../redux/store'
@@ -18,6 +19,7 @@ class App extends Component {
         <Switch>
           <Route path='/shelter/register' component={ShelterRegistration}/>
           <Route path='/shelter/login' component={Login}/>
+          <Route path='/shelter/dashboard' component={Dashboard} />
         </Switch>
       </>
     </Router>

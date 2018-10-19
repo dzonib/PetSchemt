@@ -25,20 +25,22 @@ class Login extends Component {
   }
 
   componentDidMount() {
-
     if (this.props.auth.isAuthenticated) {
       console.log('redirected')
-      this.props.history.push('/dashboard')
+      this.props.history.push('/shelter/dashboard')
     }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+
     if (nextProps.auth.isAuthenticated) {
-      nextProps.history.push('/dashboard')
+      nextProps.history.push('/shelter/dashboard')
     }
+
     if (nextProps.errors) {
       return {errors: nextProps.errors}
     }
+
   }
 
   render() {
