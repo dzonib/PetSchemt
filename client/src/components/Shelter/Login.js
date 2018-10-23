@@ -11,7 +11,8 @@ class Login extends Component {
 
   state = {
     email: '',
-    password: ''
+    password: '',
+    errors: {}
   }
 
   handleChange = (name, e) => {
@@ -26,7 +27,6 @@ class Login extends Component {
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated) {
-      console.log('redirected')
       this.props.history.push('/shelter/dashboard')
     }
   }

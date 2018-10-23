@@ -29,10 +29,8 @@ const ShelterSchema = new Schema({
   },
   animals: [
     {
-      animal: {
         type: Schema.Types.ObjectId,
         ref: 'animal'
-      }
     }
   ]
 })

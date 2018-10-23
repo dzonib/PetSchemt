@@ -55,6 +55,8 @@ router.get('/', async(req, res) => {
   res.json(animals)
 })
 
+
+
 // get one animal by id
 router.get('/:id', async (req, res) => {
 

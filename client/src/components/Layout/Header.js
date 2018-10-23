@@ -60,7 +60,7 @@ class Header extends Component {
           <Typography variant="h6" style={{
             color: 'white'
           }}>
-            <Pets/>
+            <Pets fontSize="large"/>
             PetSchmet
           </Typography>
           </Link>
