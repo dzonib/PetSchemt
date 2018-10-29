@@ -103,10 +103,9 @@ router.get('/test', passport.authenticate('jwt', {session: false}), (req, res) =
 
 // get animals
 router.get('/getanimals', passport.authenticate('jwt', {session: false}), async (req, res) => {
+
   const shelter = await Shelter.findById(req.user.id).populate('animals')
 
- 
-  
   res.json(shelter)
 })
 

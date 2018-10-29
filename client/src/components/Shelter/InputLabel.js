@@ -6,7 +6,7 @@ const InputLabel = ({name}) => (
     justifyContent: 'flex-start', 
     marginLeft: '15px',
     marginTop: '16px', 
-    marginBottom: name === 'Select city' ? 0: -14
+    marginBottom: name === 'Select city' || 'Select animal type'? 0: -14
     }}>
     <p style={{
     padding: '0',

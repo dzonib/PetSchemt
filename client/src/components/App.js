@@ -12,6 +12,7 @@ import './App.css'
 import setAuthToken from '../utils/setAuthToken'
 import {setCurrentShelter} from '../redux/actions/shelter/login'
 import Animals from './Shelter/Animals';
+import AddAnimal from './Animals/AddAnimal';
 
 
 if (localStorage.jwt) {
@@ -36,6 +37,7 @@ class App extends Component {
           <Route path='/shelter/login' component={Login}/>
           <Route path='/shelter/dashboard' component={Dashboard} />
           <Route path='/shelter/animals' component={Animals} />
+          <Route path='/animals/add' component={AddAnimal} />
         </Switch>
       </>
     </Router>

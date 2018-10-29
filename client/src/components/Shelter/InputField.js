@@ -14,7 +14,6 @@ const InputField = ({placeholder, type, onInputChange, error}) => (
       type={type}
       onChange={onInputChange}
       margin="normal"
-      
     />
 
     {error && <div style={{display: 'flex', justifyContent: 'flex-strt'}}>
