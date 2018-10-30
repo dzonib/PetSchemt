@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
 import {connect} from 'react-redux'
 
+import getAnimalById from '../../redux/actions/animals/getAnimalById'
 import setAnimals from '../../redux/actions/shelter/getAnimals'
 
 
 class Animals extends Component {
 
   state = {
-    animalsByShelter: []
+    animalsByShelter: [],
   }
 
   componentDidMount() {
@@ -21,29 +22,45 @@ class Animals extends Component {
     // }
   }
 
+  handleAnimal = (id) => {
+    this.props.getAnimalById(id, this.props.history)
+  }
+
   render() {
     const {animalsByShelter} = this.state
     return (
       <div>
-      
+
       <Link to="/animals/add"><button>Add Animal</button></Link>
+
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
+          gap: '10px',
+          margin: '60px'
+        }}
+      >
+      
         {animalsByShelter.length !== 0 ?
-        animalsByShelter.map(({animalAge, 
+        animalsByShelter.map(
+          ({animalAge, 
         animalBreed, animalImage, animalName, animalType, reserved, shelter, _id }) => {
-          return <div key={_id}>
-            <p>Animal Type:</p>
-            <p>{animalType}</p>
-            <p>Animal Breed:</p>
-            <p>{animalBreed}</p>
-            <p>Animal Name:</p>
-            <p>{animalName}</p>
-            <p>Animal Age:</p>
-            <p>{animalAge}</p>
-            <img src={animalImage} alt="animal" style={{maxWidth: '100px', maxHeight: '100px'}}/>
+          return <div key={_id} style={{
+            textAlign: 'center',
+            fontFamily: 'cursive',
+            border: '1px solid black',
+            borderRadius: '20px',
+            width: '220px'
+          }}>
+            <p onClick={() => this.handleAnimal(_id)}>{animalName}</p>
+            <img src={animalImage} alt="animal" 
+            style={{width: '150px', height: '150px', borderRadius: '10px'}}/>
             <p>{reserved}</p>
-            <hr></hr>
           </div>
-        }) : <p>De nada</p>}
+        }
+        ) : <p>De nada</p>}
+      </div>
       </div>
     )
   }
@@ -51,8 +68,8 @@ class Animals extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    animalsByShelter: state.animalsByShelter
+    animalsByShelter: state.animalsByShelter,
   }
 }
 
-export default connect(mapStateToProps, {setAnimals})(Animals)
+export default connect(mapStateToProps, {setAnimals, getAnimalById})(Animals)
