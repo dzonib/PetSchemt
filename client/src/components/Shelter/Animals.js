@@ -36,7 +36,7 @@ class Animals extends Component {
       <div
         style={{
           display: 'grid',
-          gridTemplateColumns: '1fr 1fr 1fr 1fr 1fr',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
           gap: '10px',
           margin: '60px'
         }}
@@ -47,11 +47,12 @@ class Animals extends Component {
           ({animalAge, 
         animalBreed, animalImage, animalName, animalType, reserved, shelter, _id }) => {
           return <div key={_id} style={{
+            display: 'block',
             textAlign: 'center',
             fontFamily: 'cursive',
             border: '1px solid black',
             borderRadius: '20px',
-            width: '220px'
+            width: '100%'
           }}>
             <p onClick={() => this.handleAnimal(_id)}>{animalName}</p>
             <img src={animalImage} alt="animal" 

@@ -117,7 +117,7 @@ class Header extends Component {
           <Typography variant="h6" style={{
             color: 'white'
           }}>
-            <Pets/>
+            <Pets fontSize="large"/>
             PetSchmet
           </Typography>
           </Link>
@@ -137,7 +137,7 @@ class Header extends Component {
             </Link>
 
             <Link className="header__link" to='#'
-            onClick={() => this.props.logout(this.props.history)}>
+              onClick={() => this.props.logout(this.props.history)}>
               <div className="header__authArea__container">
                 <div className="header__auth__area mali__font" style={{width:'95px'}}>
                   <RemoveCircle/>
@@ -145,10 +145,7 @@ class Header extends Component {
                 </div>
               </div>
             </Link>
-
           </div>
-
-           
 
         </Toolbar>
       </AppBar>}

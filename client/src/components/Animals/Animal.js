@@ -13,7 +13,6 @@ class Animal extends Component {
   }
 
   render() {
-    console.log(this.state)
     const {
       animalAge,
       animalBreed,

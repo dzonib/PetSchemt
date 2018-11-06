@@ -11,9 +11,11 @@ import Login from './Shelter/Login'
 import './App.css'
 import setAuthToken from '../utils/setAuthToken'
 import {setCurrentShelter} from '../redux/actions/shelter/login'
-import Animals from './Shelter/Animals';
-import AddAnimal from './Animals/AddAnimal';
-import Animal from './Animals/Animal';
+import Animals from './Shelter/Animals'
+import AddAnimal from './Animals/AddAnimal'
+import Animal from './Animals/Animal'
+import AllAnimals from './Animals/Animals'
+
 
 
 if (localStorage.jwt) {
@@ -27,19 +29,24 @@ if (localStorage.jwt) {
 }
 
 class App extends Component {
+  state = {
+    animals: []
+  }
+  
   render() {
     return (
       <Provider store={store}>
       <Router>
       <>
-        <Route path='/' component={Header}/>
+        <Route path='/' component={Header} />
         <Switch>
-          <Route path='/shelter/register' component={ShelterRegistration}/>
-          <Route path='/shelter/login' component={Login}/>
+          <Route path='/shelter/register' component={ShelterRegistration} />
+          <Route path='/shelter/login' component={Login} />
           <Route path='/shelter/dashboard' component={Dashboard} />
           <Route path='/shelter/animals' component={Animals} />
           <Route path='/animals/add' component={AddAnimal} />
           <Route path={'/animals/:id'} component={Animal} />
+          <Route path={'/animals'} component={AllAnimals} />
         </Switch>
       </>
     </Router>

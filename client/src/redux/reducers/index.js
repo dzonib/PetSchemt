@@ -3,11 +3,13 @@ import errorsReducer from './errorReducer'
 import loginReducer from './loginReducer'
 import getAnimalsByShelter from '../reducers/getAnimalsByShelter'
 import animalReducer from '../reducers/animalReducer'
+import allAnimals from '../reducers/AllAnimals'
 
 
 export default combineReducers({
   errors: errorsReducer,
   auth: loginReducer,
   animalsByShelter: getAnimalsByShelter,
-  animal: animalReducer
+  animal: animalReducer,
+  animals: allAnimals
 })
